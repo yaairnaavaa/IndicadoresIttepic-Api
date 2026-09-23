@@ -56,12 +56,13 @@ class UserController {
 
                 const formatUser = await this._formatUser(employee, user);
 
+                const isProduction = process.env.NODE_ENV === 'production';
+
                 return res.cookie('token', token, {
                     httpOnly: true,
-                    secure: process.env.NODE_ENV === 'production',
-                    // sameSite: 'Strict',
-                    sameSite: 'none',
-                    partitioned: true,
+                    secure: isProduction,
+                    sameSite: isProduction ? 'none' : 'lax',
+                    partitioned: isProduction,
                     maxAge: rememberMe ? 30 * 24 * 60 * 60 * 1000 : undefined // 30 días en ms
                 }).json({ user: formatUser });
             });
@@ -117,12 +118,12 @@ class UserController {
 
 
     logout(req, res) {
+        const isProduction = process.env.NODE_ENV === 'production';
         res.clearCookie('token', {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            // sameSite: 'Strict',
-            sameSite: 'none',
-            partitioned: true,
+            secure: isProduction,
+            sameSite: isProduction ? 'none' : 'lax',
+            partitioned: isProduction,
         });
         return res.json({ message: 'Sesión cerrada' });
     }

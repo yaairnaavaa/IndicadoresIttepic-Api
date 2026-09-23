@@ -4,7 +4,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon ./localhost.js"
+    "start": "nodemon ./localhost.js",
+    "seed": "node seed.js"
   },
   "author": "C3S4R-ALV",
   "license": "ISC",

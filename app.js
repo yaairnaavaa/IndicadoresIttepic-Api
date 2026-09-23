@@ -22,7 +22,7 @@ const allowedOrigins = ['http://localhost:4200','https://gestor-indicadores-tec-
 
 app.use(cookieParser());
 
-app.use(cors({
+/*app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
@@ -31,6 +31,11 @@ app.use(cors({
     }
   },
   credentials: true, // Permitir credenciales (cookies, autenticación, etc.)
+}));*/
+
+app.use(cors({
+  origin: true,
+  credentials: true
 }));
 
 
